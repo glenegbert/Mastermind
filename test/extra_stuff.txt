@@ -1,0 +1,12 @@
+is a game with
+two players, you and the computer.  The
+computer generates a series of 4 letters
+that may (or may not) represent these 4
+colors (G)reen, (Y)ellow (B)lue and (R)ed.
+You will not see this series but you get to
+guess what it is.  After each time you guess
+the computer will tell you two pieces of informat:
+1. How many colors you guessed correctly 2. How
+many correct colors you have in the correct position.
+The goal is to guess the series that the computer
+generated in as few attempts as possible.
