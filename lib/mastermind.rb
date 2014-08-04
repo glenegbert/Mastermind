@@ -15,6 +15,6 @@ loop do
   when 'i'
     puts Communications.message("i")
   else
-    puts "please enter 'q','p' or 'i'"
+    puts Communications.message("v")
   end
 end

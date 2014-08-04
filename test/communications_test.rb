@@ -27,11 +27,14 @@ class IntegrationTest < Minitest::Test
 What's your guess?", Communications.message("p")
   end
 
+  def test_other_input_returns_invalid_message
+    assert_equal "please enter 'q','p' or 'i'", Communications.message("v")
+  end
   def test_input_e_returns_end_of_game_message
     guess = "GRRB"
     guess_count = 8
-    time = "4 minutes, 22 seconds"
-    assert_equal "Congratulations! You guessed the sequence 'GRRB' in 8 guesses over 4 minutes, 22 seconds. Do you want to (p)lay again or (q)uit?", Communications.end(guess,time,guess_count)
+    time = 245
+    assert_equal "Congratulations! You guessed the sequence 'GRRB' in 8 guesses over 4 minutes and 5 seconds. Do you want to (p)lay again or (q)uit?", Communications.end(guess,time,guess_count)
   end
 
   def test_message_is_returned_after_a_guess

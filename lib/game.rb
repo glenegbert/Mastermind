@@ -78,9 +78,6 @@ class Game
           break
        elsif result[1] <= 4
          puts Communications.guess(answer, result[1], result[2], @guess_counter)
-       else
-         puts "invalid answer, please enter a comination of GRYB or (q)guit"
-
         end
       end
     end

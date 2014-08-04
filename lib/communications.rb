@@ -15,6 +15,8 @@ What's your guess?"
     "MasterMind is a game! Please enter (p)lay or (q)uit"
     elsif command == "q"
     "Thanks for playing!"
+  elsif command == "v"
+    "please enter 'q','p' or 'i'"
     end
   end
 
@@ -24,5 +26,9 @@ What's your guess?"
 
   def self.guess(guess, correct_positions, correct_colors, guess_count)
   "'#{guess}' has #{correct_colors} of the correct elements with #{correct_positions} in the correct positions. You've taken #{guess_count} guess. Please guess again."
+  end
+
+  def self.invalid
+  "invalid answer, please enter a comination of GRYB or (q)guit"
   end
 end
