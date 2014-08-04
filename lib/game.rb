@@ -1,4 +1,5 @@
 require_relative 'communications'
+require_relative 'sequence'
 
 class Game
 
@@ -8,12 +9,7 @@ class Game
    end
 
    def sequence_gen
-       colors = ["R","Y","G","B"]
-       4.times do
-       letter = colors.sample
-        @code << letter
-       end
-       @code
+     @code = Sequence.new(:beginner).sequence
    end
 
    def compare_guess_places(guess, random)

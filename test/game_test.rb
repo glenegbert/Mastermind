@@ -38,7 +38,4 @@ class GameTest < Minitest::Test
       assert_equal ["BYYY", 2, 3], game.compare_guess_colors_and_place(guess, game_code)
   end
 
-  def
-  end
-
 end
