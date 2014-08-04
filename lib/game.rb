@@ -51,20 +51,8 @@ class Game
      "#{element.join}"
    end
 
-   def time_begin
-     Time.now
-   end
-
-   def time_end
-     Time.now
-   end
-
-   def time_elapsed
-     time_end - time_begin
-   end
-
    def play
-     time_begin
+     time_begin = Time.now
      @code = []
      sequence_gen
      @guess_counter = 0
@@ -77,8 +65,10 @@ class Game
          puts Communications.message("q")
          break
        elsif result[1] == 4
-         time_end
-         puts Communications.end(answer,time_elapsed,@guess_counter)
+         time_end = Time.now
+         time_elapsed = time_end - time_begin
+         integer_time = time_elapsed.to_i
+         puts Communications.end(answer,integer_time,@guess_counter)
          answer = gets.chomp.upcase
           if answer == "Q"
             puts Communications.message("q")

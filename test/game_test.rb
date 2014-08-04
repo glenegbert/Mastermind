@@ -38,13 +38,13 @@ class GameTest < Minitest::Test
       assert_equal ["BYYY", 2, 3], game.compare_guess_colors_and_place(guess, game_code)
   end
 
-  # def test_that_time_elapsed_during_game_is_recorded
-  #   game = Game.new
-  #
-  #     game.time_begin
-  #     10000000.times {game.sequence_gen}
-  #     game.time_end
-  #     p game.time_elapsed
-  #    refute game.time_elapsed == 0
-  # end
+  def test_that_time_elapsed_during_game_is_recorded
+    game = Game.new
+
+      a = game.time_begin
+      10000.times {game.sequence_gen}
+      b = game.time_end
+      time_elapsed = b - a
+     refute time_elapsed == 0
+  end
 end

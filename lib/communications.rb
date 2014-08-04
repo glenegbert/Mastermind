@@ -19,7 +19,7 @@ What's your guess?"
   end
 
   def self.end(guess,time,guess_count)
-    "Congratulations! You guessed the sequence '#{guess}' in #{guess_count} guesses over #{time}. Do you want to (p)lay again or (q)uit?"
+    "Congratulations! You guessed the sequence '#{guess}' in #{guess_count} guesses over #{time/60} minutes and #{time%60} seconds. Do you want to (p)lay again or (q)uit?"
   end
 
   def self.guess(guess, correct_positions, correct_colors, guess_count)
