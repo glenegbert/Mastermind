@@ -38,4 +38,27 @@ class GameTest < Minitest::Test
       assert_equal ["BYYY", 2, 3], game.compare_guess_colors_and_place(guess, game_code)
   end
 
+  def test_win_on_the_first_guess
+    skip
+    game = Game.new
+    secret = game.sequence
+    user_guess = secret.join
+    game.check_guess(secret)
+    assert game.won?
+  end
+
+  def test_first_guess_has_one_wrong_element
+    skip
+    game = Game.new
+    game.secret = %w(Y Y Y Y)
+    user_guess  = "YYYG"
+    feedback = game.check_guess(secret)
+    # Expecting:
+    # { :correct_elements => 3,
+    #   :wrong_position   => 0}
+
+    assert_equal 3, feedback[:correct_elements]
+    assert_equal 0, feedback[:wrong_position]
+    refute game.won?
+  end
 end
