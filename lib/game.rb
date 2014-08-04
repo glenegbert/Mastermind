@@ -65,18 +65,27 @@ class Game
 
    def play
      time_begin
+     @code = []
      sequence_gen
+     @guess_counter = 0
      printf Communications.message("p")
      loop do
        answer = gets.chomp.upcase
        answer_to_a = answer.split(//)
        result = compare_guess_colors_and_place(answer_to_a,@code)
        if answer == "Q"
+         puts Communications.message("q")
          break
        elsif result[1] == 4
          time_end
          puts Communications.end(answer,time_elapsed,@guess_counter)
-         break
+         answer = gets.chomp.upcase
+          if answer == "Q"
+            puts Communications.message("q")
+          elsif answer == "P"
+            play
+          end
+          break
        elsif result[1] <= 4
          puts Communications.guess(answer, result[1], result[2], @guess_counter)
        else
