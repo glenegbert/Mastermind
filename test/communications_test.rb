@@ -25,7 +25,7 @@ What's your guess?", Communications.message("p")
   end
 
   def test_other_input_returns_invalid_message
-    assert_equal "please enter 'q','p' or 'i'", Communications.message("v")
+    assert_equal "please enter one of the given letters", Communications.message("v")
   end
   def test_input_e_returns_end_of_game_message
     guess = "GRRB"

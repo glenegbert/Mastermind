@@ -1,6 +1,7 @@
 require_relative 'communications'
 require_relative 'sequence'
 require_relative 'comparerator'
+require_relative 'verify'
 
 class Game
 
@@ -17,17 +18,32 @@ class Game
     Comparerator.compare_guess_colors_and_place(answer,@code)[1] == 4
   end
 
+  def get_guess(level)
+    guess = gets.chomp.upcase
+    if Verify.guess_verified?(guess, level)
+      guess
+    else
+      puts "Invalide Guess, Please Try Again:"
+      get_guess(level)
+    end
+
+  end
+
    def determine_level
     loop do
        puts Communications.game_level
        answer = gets.chomp.downcase
        case answer
          when 'b' then play(:beginner)
+           break
          when 'i' then play(:intermediate)
+           break
          when 'a' then play(:advanced)
+           break
          when 'q' then puts Communications.message("q")
+           break
+         else puts Communications.message("v")
        end
-       break
      end
    end
 
@@ -38,7 +54,7 @@ class Game
      @guess_counter = 0
      printf Communications.game_start_message(level)
      loop do
-       answer = gets.chomp.upcase
+       answer = get_guess(level)
        result = Comparerator.compare_guess_colors_and_place(answer,@code)
        if answer == "Q"
          puts Communications.message("q")

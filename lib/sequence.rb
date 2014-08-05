@@ -15,12 +15,16 @@ class Sequence
     length_for_difficulty[difficulty]
   end
 
-  def colors
-    %w(R G B Y)
+  def colors(level)
+    case
+      when level == :beginner then %w(R G B Y)
+      when level == :intermediate then %w(P R G B Y)
+      when level == :advanced then %w(T P R G B Y)
+    end
   end
 
   def sequence
-    (0...length).collect{ colors.sample }
+    (0...length).collect{ colors(@difficulty).sample }
   end
 
 end

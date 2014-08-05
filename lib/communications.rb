@@ -1,6 +1,16 @@
+require 'colorize'
 class Communications
 
-  def self.intro_message
+  def self.intro_message1
+"
+     M      M      A    SSSSS  TTTTT  EEEEE  RRRRR  M     M  IIIII  N   N DDDD
+     M M  M M     A A    S       T    E      R   R  M M M M    I    NN  N D   D
+     M M  M M    A   A    S      T    EEEEE  RRRR   M M M M    I    NN  N D   D
+     M   M  M    AAAAA     s     T    E      R   R  M  M  M    I    N N N D   D
+     M   M  M   A     A  SSSS    T    EEEEE  R   R  M  M  M  IIIII  N  NN D DD
+  "
+  end
+  def self.intro_message2
     "Welcome to MASTERMIND
     Would you like to (p)lay, read the (i)nstructions, or
     (q)uit?"
@@ -11,11 +21,11 @@ class Communications
     when :beginner then "I have generated a beginner sequence with four elements made up of: (r)ed,
 (g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.
 What's your guess?"
-    when :intermediate then "I have generated an intermediate sequence with six elements made up of: (r)ed,
-(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.
+    when :intermediate then "I have generated an intermediate sequence with six elements made up of five colors: (r)ed,
+(g)reen, (b)lue, and (p)purple and (y)ellow. Use (q)uit at any time to end the game.
 What's your guess?"
-    when :advanced then "I have generated an advanced sequence with eight elements made up of: (r)ed,
-(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.
+    when :advanced then "I have generated an advanced sequence with eight elements made up of six colors (r)ed,
+(g)reen, (b)lue, (p)purple, (y)yellow and (t)teal. Use (q)uit at any time to end the game.
 What's your guess?"
     end
   end
@@ -30,7 +40,7 @@ What's your guess?"
     elsif command == "q"
     "Thanks for playing!"
   elsif command == "v"
-    "please enter 'q','p' or 'i'"
+    "Please enter one of the given letters\n"
     end
   end
 
