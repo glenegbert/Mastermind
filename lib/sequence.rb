@@ -8,7 +8,7 @@ class Sequence
   def length_for_difficulty
     {:beginner     => 4,
      :intermediate => 6,
-     :expert       => 8}
+     :advanced       => 8}
   end
 
   def length

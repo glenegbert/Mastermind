@@ -1,5 +1,6 @@
 require_relative 'communications'
 require_relative 'sequence'
+require_relative 'comparerator'
 
 class Game
 
@@ -8,71 +9,53 @@ class Game
      @code = []
    end
 
-   def sequence_gen
-     @code = Sequence.new(:beginner).sequence
+   def sequence_gen(level)
+     @code = Sequence.new(level).sequence
    end
 
-   def compare_guess_places(guess, random)
-      correct_place = []
-      combined = guess.zip(random)
-      combined.each do |pair|
-        if pair[0] == pair[1]
-          correct_place << pair
-        end
-      end
-       correct_place.length
-    end
+  def won?(answer,code)
+    Comparerator.compare_guess_colors_and_place(answer,@code)[1] == 4
+  end
 
-    def compare_guess_colors(guess,random)
-      correct_colors = []
-      random.each do |letter|
-        if guess.include?(letter)
-          correct_colors << letter
-          guess.delete_at(guess.index(letter))
-        end
-      end
-      correct_colors.length
+   def determine_level
+    loop do
+       puts Communications.game_level
+       answer = gets.chomp.downcase
+       case answer
+         when 'b' then play(:beginner)
+         when 'i' then play(:intermediate)
+         when 'a' then play(:advanced)
+         when 'q' then puts Communications.message("q")
+       end
+       break
+     end
    end
 
-   def compare_guess_colors_and_place(guess,random)
-     @guess_counter += 1
-     guess1 = copy(guess)
-     cpositions = compare_guess_places(guess, random)
-     ccolors = compare_guess_colors(guess, random)
-     [guess1, cpositions, ccolors]
-
-   end
-
-   def copy(element)
-     "#{element.join}"
-   end
-
-   def play
+   def play(level)
      time_begin = Time.now
      @code = []
-     sequence_gen
+     sequence_gen(level)
      @guess_counter = 0
-     printf Communications.message("p")
+     printf Communications.game_start_message(level)
      loop do
        answer = gets.chomp.upcase
-       answer_to_a = answer.split(//)
-       result = compare_guess_colors_and_place(answer_to_a,@code)
+       result = Comparerator.compare_guess_colors_and_place(answer,@code)
        if answer == "Q"
          puts Communications.message("q")
          break
-       elsif result[1] == 4
+       elsif result[1] == @code.length
          time_end = Time.now
-         time_elapsed = time_end - time_begin
-         integer_time = time_elapsed.to_i
-         puts Communications.end(answer,integer_time,@guess_counter)
+         time_elapsed = (time_end - time_begin).to_i
+         puts Communications.end(answer,time_elapsed,@guess_counter)
          answer = gets.chomp.upcase
           if answer == "Q"
             puts Communications.message("q")
           elsif answer == "P"
-            play
+            determine_level
           end
           break
-       elsif result[1] <= 4
+       elsif result[1] <= @code.length
+         @guess_counter += 1
          puts Communications.guess(answer, result[1], result[2], @guess_counter)
         end
       end

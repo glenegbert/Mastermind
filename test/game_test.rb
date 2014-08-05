@@ -3,10 +3,12 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'minitest/mock'
 require_relative '../lib/game.rb'
+require_relative '../lib/verify.rb'
 
 class GameTest < Minitest::Test
 
   def test_sequence_gen_creates_random_sequence
+
     game = Game.new
     game2 = Game.new
     array1 = game.sequence_gen
@@ -15,50 +17,21 @@ class GameTest < Minitest::Test
     assert array2 != array1, "generating equivalent arrays"
   end
 
-  def test_how_many_positions_in_guess_are_correct
-     game = Game.new
-     game_code = ["R", "B", "R", "B"]
-     guess = ["R","B","R","B"]
-
-     assert_equal  4 , game.compare_guess_places(guess, game_code)
-  end
-
-  def test_how_many_colors_in_guess_are_correct
-      game = Game.new
-      game_code = ["Y", "Y", "Y", "Y"]
-      guess = ["R","Y","Y","B"]
-
-      assert_equal 2, game.compare_guess_colors(guess, game_code)
-  end
-
-  def test_how_many_positions_and_colors_are_correct
-      game = Game.new
-      game_code = ["Y", "Y", "Y", "G"]
-      guess = ["B","Y","Y","Y"]
-      assert_equal ["BYYY", 2, 3], game.compare_guess_colors_and_place(guess, game_code)
-  end
-
   def test_win_on_the_first_guess
-    skip
     game = Game.new
-    secret = game.sequence
+    secret = game.sequence_gen
     user_guess = secret.join
-    game.check_guess(secret)
-    assert game.won?
+    Comparerator.compare_guess_colors_and_place(user_guess,secret)
+    assert game.won?(user_guess,secret)
   end
 
   def test_first_guess_has_one_wrong_element
-    skip
     game = Game.new
-    game.secret = %w(Y Y Y Y)
-    user_guess  = "YYYG"
-    feedback = game.check_guess(secret)
-    # Expecting:
-    # { :correct_elements => 3,
-    #   :wrong_position   => 0}
-
-    assert_equal 3, feedback[:correct_elements]
-    assert_equal 0, feedback[:wrong_position]
-    refute game.won?
+    secret = %w(Y Y Y Y)
+    user_guess  = "GYYG"
+    feedback = Comparerator.compare_guess_colors_and_place(user_guess,secret)
+    assert_equal 2, feedback[1]
+    assert_equal 2, feedback[2]
+    refute game.won?(user_guess, secret)
   end
 end

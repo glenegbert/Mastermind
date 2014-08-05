@@ -6,6 +6,20 @@ class Communications
     (q)uit?"
   end
 
+  def self.game_start_message(level)
+    case level
+    when :beginner then "I have generated a beginner sequence with four elements made up of: (r)ed,
+(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.
+What's your guess?"
+    when :intermediate then "I have generated an intermediate sequence with six elements made up of: (r)ed,
+(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.
+What's your guess?"
+    when :advanced then "I have generated an advanced sequence with eight elements made up of: (r)ed,
+(g)reen, (b)lue, and (y)ellow. Use (q)uit at any time to end the game.
+What's your guess?"
+    end
+  end
+
   def self.message(command)
     if command == "p"
     "I have generated a beginner sequence with four elements made up of: (r)ed,
@@ -29,6 +43,11 @@ What's your guess?"
   end
 
   def self.invalid
-  "invalid answer, please enter a comination of GRYB or (q)guit"
+  "invalid answer, please enter a combination of GRYB or (q)guit"
+  end
+
+  def self.game_level
+  "What level would you like to play
+    (b)beginnger - 4 positions, (i)intermediate - 6 positions, (a) advanced - 8 positions"
   end
 end

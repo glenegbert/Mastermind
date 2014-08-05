@@ -10,7 +10,7 @@ loop do
     puts Communications.message("q")
     break
   when 'p'
-    game.play
+    game.determine_level       
     break
   when 'i'
     puts Communications.message("i")
