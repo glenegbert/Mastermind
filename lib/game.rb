@@ -8,6 +8,8 @@ class Game
    def initialize
      @guess_counter = 0
      @code = []
+     @time_elapsed = 0
+     @@guesses ||= []
    end
 
    def start
@@ -49,6 +51,7 @@ class Game
    end
 
    def play(level)
+     @time_elapsed = 0
      time_begin = Time.now
      @code = []
      sequence_gen(level)
@@ -61,8 +64,11 @@ class Game
          break
        elsif result[1] == @code.length
          time_end = Time.now
-         time_elapsed = (time_end - time_begin).to_i
-         puts Communications.end(answer,time_elapsed,@guess_counter)
+         @time_elapsed = (time_end - time_begin).to_i
+         @@guesses << @guess_counter
+         average = @@guesses.reduce{ |sum, number| sum +number}/@@guesses.length
+         difference = @guess_counter - average
+         puts Communications.end(answer,@time_elapsed,@guess_counter,difference)
          answer = gets.chomp.upcase
           if answer == "Q"
             puts ""

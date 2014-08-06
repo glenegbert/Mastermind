@@ -44,8 +44,20 @@ What's your guess?"
     end
   end
 
-  def self.end(guess,time,guess_count)
-    "Congratulations! You guessed the sequence '#{guess}' in #{guess_count} guesses over #{time/60} minutes and #{time%60} seconds. Do you want to (p)lay again or (q)uit?"
+  def self.difference_from_average(difference)
+    delta = difference.abs
+    if difference > 0
+      "#{delta} more guesses than average"
+    elsif difference < 0
+      "#{delta} less guesses than average"
+    else
+      "the average number of guesses"
+    end
+  end
+
+  def self.end(guess,time,guess_count,difference)
+    message = "Congratulations! You guessed the sequence '#{guess}' in #{guess_count} guesses which is #{difference_from_average(difference)} over #{time/60} minutes and #{time%60} seconds. Do you want to (p)lay again or (q)uit?"
+
   end
 
   def self.guess(guess, correct_positions, correct_colors, guess_count)
