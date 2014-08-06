@@ -10,28 +10,29 @@ class Game
      @code = []
    end
 
-   def sequence_gen(level)
-     @code = Sequence.new(level).sequence
+   def start
+    puts Communications.intro_message1.green
+    puts Communications.intro_message2.blue
+     loop do
+       answer = gets.chomp.downcase
+       case answer
+       when 'q'
+         break
+       when 'p'
+         determine_level
+         break
+       when 'i'
+         puts Communications.message("i")
+       else
+         puts Communications.message("v")
+       end
+     end
+   puts Communications.message("q")
    end
-
-  def won?(answer,code)
-    Comparerator.compare_guess_colors_and_place(answer,@code)[1] == 4
-  end
-
-  def get_guess(level)
-    guess = gets.chomp.upcase
-    if Verify.guess_verified?(guess, level)
-      guess
-    else
-      puts "Invalide Guess, Please Try Again:"
-      get_guess(level)
-    end
-
-  end
 
    def determine_level
     loop do
-       puts Communications.game_level
+       puts Communications.game_level.yellow
        answer = gets.chomp.downcase
        case answer
          when 'b' then play(:beginner)
@@ -40,7 +41,7 @@ class Game
            break
          when 'a' then play(:advanced)
            break
-         when 'q' then puts Communications.message("q")
+         when 'q' then puts ""
            break
          else puts Communications.message("v")
        end
@@ -52,12 +53,11 @@ class Game
      @code = []
      sequence_gen(level)
      @guess_counter = 0
-     printf Communications.game_start_message(level)
+     printf Communications.game_start_message(level).red
      loop do
        answer = get_guess(level)
        result = Comparerator.compare_guess_colors_and_place(answer,@code)
        if answer == "Q"
-         puts Communications.message("q")
          break
        elsif result[1] == @code.length
          time_end = Time.now
@@ -65,7 +65,7 @@ class Game
          puts Communications.end(answer,time_elapsed,@guess_counter)
          answer = gets.chomp.upcase
           if answer == "Q"
-            puts Communications.message("q")
+            puts ""
           elsif answer == "P"
             determine_level
           end
@@ -76,4 +76,23 @@ class Game
         end
       end
     end
+
+  def sequence_gen(level)
+    @code = Sequence.new(level).sequence
+  end
+
+   def won?(answer,code)
+     Comparerator.compare_guess_colors_and_place(answer,@code)[1] == 4
+   end
+
+   def get_guess(level)
+     guess = gets.chomp.upcase
+     if Verify.guess_verified?(guess, level)
+       guess
+     else
+       puts "Invalide Guess, Please Try Again:"
+       get_guess(level)
+     end
+
+   end
 end

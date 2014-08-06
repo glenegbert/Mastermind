@@ -3,11 +3,11 @@ class Communications
 
   def self.intro_message1
 "
-     M      M      A    SSSSS  TTTTT  EEEEE  RRRRR  M     M  IIIII  N   N DDDD
-     M M  M M     A A    S       T    E      R   R  M M M M    I    NN  N D   D
-     M M  M M    A   A    S      T    EEEEE  RRRR   M M M M    I    NN  N D   D
-     M   M  M    AAAAA     s     T    E      R   R  M  M  M    I    N N N D   D
-     M   M  M   A     A  SSSS    T    EEEEE  R   R  M  M  M  IIIII  N  NN D DD
+     M      M      A    SSSSS  TTTTT  EEEEE  RRRRR  M     M  IIIII  N   N  DDDD
+     M M  M M     A A   S        T    E      R   R  M M M M    I    NN  N  D   D
+     M M  M M    A   A   SSS     T    EEEEE  RRRR   M M M M    I    NN  N  D   D
+     M   M  M    AAAAA      S    T    E      R   R  M  M  M    I    N N N  D   D
+     M   M  M   A     A SSSSS    T    EEEEE  R   R  M  M  M  IIIII  N  NN  D DD
   "
   end
   def self.intro_message2

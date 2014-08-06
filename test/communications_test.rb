@@ -4,10 +4,10 @@ require 'minitest/pride'
 require 'minitest/mock'
 require_relative '../lib/communications.rb'
 
-class IntegrationTest < Minitest::Test
+class CommunicationsTest < Minitest::Test
 
   def test_returns_introductory_instructions
-    assert Communications.intro_message.downcase.include?("welcome")
+    assert Communications.intro_message2.downcase.include?("welcome")
   end
 
   def test_inputs_i_returns_instructions
@@ -25,7 +25,7 @@ What's your guess?", Communications.message("p")
   end
 
   def test_other_input_returns_invalid_message
-    assert_equal "please enter one of the given letters", Communications.message("v")
+    assert Communications.message("v").include?("given letters")
   end
   def test_input_e_returns_end_of_game_message
     guess = "GRRB"

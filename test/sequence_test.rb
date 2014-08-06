@@ -20,14 +20,14 @@ class SequenceTest < Minitest::Test
   end
 
   def test_the_difficulty_determines_the_colors
-    sequence = Sequence.new(:beginner)
-    assert_equal %w(R G B Y).sort, sequence.colors.sort
+    sequence = Sequence.new(:intermediate)
+    assert_equal %w(R G B Y P).sort, sequence.colors(:intermediate).sort
   end
 
   def test_it_generates_a_sequence
     sequence = Sequence.new(:beginner)
     assert_equal sequence.length, sequence.sequence.length
-    assert sequence.sequence.all?{ |color| sequence.colors.include?(color) }
+    assert sequence.sequence.all?{ |color| sequence.colors(:beginner).include?(color) }
   end
 
   def test_it_generates_different_sequences
