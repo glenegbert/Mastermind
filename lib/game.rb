@@ -18,6 +18,7 @@ class Game
 
    def start
     puts Communications.intro_message1.green
+    sleep(2)
     puts Communications.intro_message2.blue
      loop do
        answer = gets.chomp.downcase

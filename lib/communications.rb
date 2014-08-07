@@ -4,11 +4,24 @@ require_relative 'entry'
 
   def self.intro_message1
 "
+
+
+
+
+
+
+
      M      M      A    SSSSS  TTTTT  EEEEE  RRRRR  M     M  IIIII  N   N  DDDD
      M M  M M     A A   S        T    E      R   R  M M M M    I    NN  N  D   D
      M M  M M    A   A   SSS     T    EEEEE  RRRR   M M M M    I    NN  N  D   D
      M   M  M    AAAAA      S    T    E      R   R  M  M  M    I    N N N  D   D
      M   M  M   A     A SSSSS    T    EEEEE  R   R  M  M  M  IIIII  N  NN  D DD
+
+
+
+
+
+
   "
   end
   def self.intro_message2
@@ -68,7 +81,7 @@ What's your guess?"
   end
 
   def self.end(name,guess,time,guess_count,guess_difference,time_difference)
-    message = "Congratulations #{name}! You guessed the sequence '#{guess}' in #{guess_count} guesses which is #{guess_difference_from_average(guess_difference)}
+    message = "Congratulations #{name}! You guessed the sequence '#{guess}' in #{guess_count} guesses, which is #{guess_difference_from_average(guess_difference)},
     over #{time/60} minutes and #{time%60} seconds which is #{time_difference_from_average(time_difference)}. "
 
   end
@@ -91,8 +104,8 @@ What's your guess?"
   end
 
   def self.top_ten(top_ten_array)
-    puts "                 TOP TEN FOR YOUR LEVEL".red
-    top_ten_array.each do |entry| puts "                #{entry.name}......Guesses:#{entry.guesses}......Time:#{entry.time}".blue
+    puts "                          TOP TEN FOR YOUR LEVEL".red
+    top_ten_array.each do |entry| puts "           #{entry.name}".ljust(28, ".").blue + "Guesses:#{entry.guesses}".ljust(18, ".").blue + "Time:#{entry.time.to_i/60}min. #{entry.time.to_i%60}seconds".blue
     end
     puts "Do you want to (p)lay again or (q)uit?"
 
