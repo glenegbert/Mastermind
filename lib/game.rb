@@ -59,6 +59,7 @@ class Game
      @code = []
      sequence_gen(level)
      @guess_counter = 0
+     puts @code
      printf Communications.game_start_message(level).red
      loop do
        answer = get_guess(level)
@@ -66,6 +67,7 @@ class Game
        if answer == "Q"
          break
        elsif result[1] == @code.length
+         @guess_counter += 1
          puts Communications.get_name
          name = gets.strip
          @@names << name
@@ -77,7 +79,7 @@ class Game
          time_difference = @time_elapsed - time_average
          guess_average = @@guesses.reduce{ |sum, number| sum +number}/@@guesses.length
          guess_difference = @guess_counter - guess_average
-         save_game_informations(to_file="game_data.csv",name,@time_elapsed,@guess_counter)
+         save_game_informations("#{level}.csv",name,@time_elapsed,@guess_counter)
          puts Communications.end(name,answer,@time_elapsed,@guess_counter,guess_difference,time_difference)
          answer = gets.chomp.upcase
           if answer == "Q"
@@ -113,7 +115,7 @@ class Game
    end
 
    def save_game_informations(to_file="mastermind_game_data.csv",name,time,guesses)
-     File.open(to_file, "w") do  |file|
+     File.open(to_file, "ab") do  |file|
      file.puts "#{name},#{time},#{guesses}"
      end
    end
