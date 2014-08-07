@@ -8,7 +8,10 @@ class EntryRepository
 
   def self.load_entries(level)
     # file = File.join("#{level}", '.csv')
-    data = CSV.open("/Users/glenegbert/Dropbox/ruby_projects/mastermind/lib/#{level}.csv", headers: true, header_converters: :symbol)
+    data = CSV.open(
+                    "/Users/glenegbert/Dropbox/ruby_projects/mastermind/lib/#{level}.csv",
+                    headers: true, header_converters: :symbol
+                    )
     rows = data.map do |row|
       Entry.new(row)
     end
