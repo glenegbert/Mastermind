@@ -30,4 +30,8 @@ class EntryRepository
                           .reduce(:+)/entries.length
   end
 
+  def top_ten_array
+    sorted_entries = entries.sort_by{|entry| entry.guesses}[0..9]
+  end
+
 end

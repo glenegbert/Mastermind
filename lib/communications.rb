@@ -1,5 +1,6 @@
 require 'colorize'
 class Communications
+require_relative 'entry'
 
   def self.intro_message1
 "
@@ -68,7 +69,7 @@ What's your guess?"
 
   def self.end(name,guess,time,guess_count,guess_difference,time_difference)
     message = "Congratulations #{name}! You guessed the sequence '#{guess}' in #{guess_count} guesses which is #{guess_difference_from_average(guess_difference)}
-    over #{time/60} minutes and #{time%60} seconds which is #{time_difference_from_average(time_difference)}. Do you want to (p)lay again or (q)uit?"
+    over #{time/60} minutes and #{time%60} seconds which is #{time_difference_from_average(time_difference)}. "
 
   end
 
@@ -87,5 +88,13 @@ What's your guess?"
 
   def self.get_name
     "What is your name?"
+  end
+
+  def self.top_ten(top_ten_array)
+    puts "                 TOP TEN FOR YOUR LEVEL".red
+    top_ten_array.each do |entry| puts "                #{entry.name}......Guesses:#{entry.guesses}......Time:#{entry.time}".blue
+    end
+    puts "Do you want to (p)lay again or (q)uit?"
+
   end
 end

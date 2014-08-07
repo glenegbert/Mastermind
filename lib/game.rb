@@ -70,19 +70,16 @@ class Game
        elsif result[1] == @code.length
          repository = EntryRepository.load_entries(level)
          @guess_counter += 1
+         time_end = Time.now
          puts Communications.get_name
          name = gets.strip
-        #  @@names << name
-         time_end = Time.now
          @time_elapsed = (time_end - time_begin).to_i
          time_difference = repository.calculate_time_difference(@time_elapsed)
-        #  @@guesses << @guess_counter
-        #  guess_average = @@guesses.reduce{ |sum, number| sum +number}/@@guesses.length
-        #  guess_difference = @guess_counter - guess_average
-        guess_difference = repository.calculate_guess_difference(@guess_counter)
+         guess_difference = repository.calculate_guess_difference(@guess_counter)
          save_game_informations(level,name,@time_elapsed,@guess_counter)
-
+         repository = EntryRepository.load_entries(level)
          puts Communications.end(name,answer,@time_elapsed,@guess_counter,guess_difference,time_difference)
+         Communications.top_ten(repository.top_ten_array)
          answer = gets.chomp.upcase
           if answer == "Q"
             puts ""
