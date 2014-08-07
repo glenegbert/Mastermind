@@ -2,6 +2,7 @@ require_relative 'communications'
 require_relative 'sequence'
 require_relative 'comparerator'
 require_relative 'verify'
+require_relative 'entry_repository'
 require 'csv'
 
 class Game
@@ -67,19 +68,20 @@ class Game
        if answer == "Q"
          break
        elsif result[1] == @code.length
+         repository = EntryRepository.load_entries(level)
          @guess_counter += 1
          puts Communications.get_name
          name = gets.strip
-         @@names << name
+        #  @@names << name
          time_end = Time.now
          @time_elapsed = (time_end - time_begin).to_i
-         @@guesses << @guess_counter
-         @@times << @time_elapsed
-         time_average = @@times.reduce{ |sum, time| sum +time}/@@times.length
-         time_difference = @time_elapsed - time_average
-         guess_average = @@guesses.reduce{ |sum, number| sum +number}/@@guesses.length
-         guess_difference = @guess_counter - guess_average
-         save_game_informations("#{level}.csv",name,@time_elapsed,@guess_counter)
+         time_difference = repository.calculate_time_difference(@time_elapsed)
+        #  @@guesses << @guess_counter
+        #  guess_average = @@guesses.reduce{ |sum, number| sum +number}/@@guesses.length
+        #  guess_difference = @guess_counter - guess_average
+        guess_difference = repository.calculate_guess_difference(@guess_counter)
+         save_game_informations(level,name,@time_elapsed,@guess_counter)
+
          puts Communications.end(name,answer,@time_elapsed,@guess_counter,guess_difference,time_difference)
          answer = gets.chomp.upcase
           if answer == "Q"
@@ -115,8 +117,9 @@ class Game
    end
 
    def save_game_informations(to_file="mastermind_game_data.csv",name,time,guesses)
-     File.open(to_file, "ab") do  |file|
+     File.open("/Users/glenegbert/Dropbox/ruby_projects/mastermind/lib/#{to_file}.csv", "ab") do  |file|
      file.puts "#{name},#{time},#{guesses}"
      end
    end
+
 end
