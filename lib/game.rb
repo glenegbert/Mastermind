@@ -2,6 +2,7 @@ require_relative 'communications'
 require_relative 'sequence'
 require_relative 'comparerator'
 require_relative 'verify'
+require 'csv'
 
 class Game
 
@@ -10,6 +11,8 @@ class Game
      @code = []
      @time_elapsed = 0
      @@guesses ||= []
+     @@times ||= []
+     @@names ||=[]
    end
 
    def start
@@ -63,12 +66,19 @@ class Game
        if answer == "Q"
          break
        elsif result[1] == @code.length
+         puts Communications.get_name
+         name = gets.strip
+         @@names << name
          time_end = Time.now
          @time_elapsed = (time_end - time_begin).to_i
          @@guesses << @guess_counter
-         average = @@guesses.reduce{ |sum, number| sum +number}/@@guesses.length
-         difference = @guess_counter - average
-         puts Communications.end(answer,@time_elapsed,@guess_counter,difference)
+         @@times << @time_elapsed
+         time_average = @@times.reduce{ |sum, time| sum +time}/@@times.length
+         time_difference = @time_elapsed - time_average
+         guess_average = @@guesses.reduce{ |sum, number| sum +number}/@@guesses.length
+         guess_difference = @guess_counter - guess_average
+         save_game_informations(to_file="game_data.csv",name,@time_elapsed,@guess_counter)
+         puts Communications.end(name,answer,@time_elapsed,@guess_counter,guess_difference,time_difference)
          answer = gets.chomp.upcase
           if answer == "Q"
             puts ""
@@ -100,5 +110,11 @@ class Game
        get_guess(level)
      end
 
+   end
+
+   def save_game_informations(to_file="mastermind_game_data.csv",name,time,guesses)
+     File.open(to_file, "w") do  |file|
+     file.puts "#{name},#{time},#{guesses}"
+     end
    end
 end

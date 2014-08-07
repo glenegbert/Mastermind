@@ -31,10 +31,11 @@ What's your guess?", Communications.message("p")
     guess = "GRRB"
     guess_count = 8
     time = 245
-    average_guess = 9
-    difference = -1
+    guess_difference = -1
+    time_difference = 1
 
-    assert Communications.end(guess,time,guess_count,difference).include?("1 less")
+    assert Communications.end(name,guess,time,guess_count,guess_difference,time_difference).include?("1 less")
+    refute Communications.end(name,guess,time,guess_count,guess_difference,time_difference).include?("seconds less")
   end
 
   def test_message_is_returned_after_a_guess

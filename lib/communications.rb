@@ -44,19 +44,31 @@ What's your guess?"
     end
   end
 
-  def self.difference_from_average(difference)
-    delta = difference.abs
-    if difference > 0
+  def self.time_difference_from_average(time_difference)
+    delta = time_difference.abs
+    if time_difference > 0
+      "#{delta/60} minutes and #{delta%60} seconds longer than average"
+    elsif time_difference < 0
+      "#{delta/60} minutes and #{delta%60} seconds less than average"
+    else
+      "the average amount of time"
+    end
+  end
+
+  def self.guess_difference_from_average(guess_difference)
+    delta = guess_difference.abs
+    if guess_difference > 0
       "#{delta} more guesses than average"
-    elsif difference < 0
+    elsif guess_difference < 0
       "#{delta} less guesses than average"
     else
       "the average number of guesses"
     end
   end
 
-  def self.end(guess,time,guess_count,difference)
-    message = "Congratulations! You guessed the sequence '#{guess}' in #{guess_count} guesses which is #{difference_from_average(difference)} over #{time/60} minutes and #{time%60} seconds. Do you want to (p)lay again or (q)uit?"
+  def self.end(name,guess,time,guess_count,guess_difference,time_difference)
+    message = "Congratulations #{name}! You guessed the sequence '#{guess}' in #{guess_count} guesses which is #{guess_difference_from_average(guess_difference)}
+    over #{time/60} minutes and #{time%60} seconds which is #{time_difference_from_average(time_difference)}. Do you want to (p)lay again or (q)uit?"
 
   end
 
@@ -71,5 +83,9 @@ What's your guess?"
   def self.game_level
   "What level would you like to play
     (b)beginnger - 4 positions, (i)intermediate - 6 positions, (a) advanced - 8 positions"
+  end
+
+  def self.get_name
+    "What is your name?"
   end
 end

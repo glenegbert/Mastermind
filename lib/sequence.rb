@@ -1,5 +1,5 @@
 class Sequence
-  attr_reader :difficulty
+  attr_reader :difficulty  # => nil
 
   def initialize(level)
     @difficulty = level

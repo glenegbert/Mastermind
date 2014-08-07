@@ -35,7 +35,4 @@ class GameTest < Minitest::Test
     refute game.won?(user_guess, secret)
   end
 
-  def test_saves_player_info_to_csv_file
-    
-  end
 end
